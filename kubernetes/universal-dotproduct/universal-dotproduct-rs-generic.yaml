@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: universal-dotproduct 
+  labels:
+    app: universal-dotproduct 
+spec:
+  replicas: 10
+  template:
+    metadata:
+      labels:
+        app: universal-dotproduct
+    spec:
+      containers:
+      - name: universal-dotproduct
+        image: gcr.io/k8s-hybrid-cloud-demo/universal-dotproduct:latest
+        command: [ "/bin/bash", "-c", "--" ]
+        args: [ "while true; do /app/universal-dotproduct; echo 'done'; done;" ]
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: "200m" 
